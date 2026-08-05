@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════
+   THEME TOKENS
+   ═══════════════════════════════════════════════ */
+:root, html.dark {
+  --bg-primary:   #0a0a0f;
+  --bg-card:      rgba(255,255,255,0.04);
+  --border-card:  rgba(255,255,255,0.08);
+  --text-primary:  #f1f5f9;
+  --text-secondary:#cbd5e1;
+  --text-muted:    #64748b;
+}
+
+html.light {
+  --bg-primary:   #f0f4ff;
+  --bg-card:      rgba(255,255,255,0.75);
+  --border-card:  rgba(99,102,241,0.20);
+  --text-primary:  #0f172a;
+  --text-secondary:#334155;
+  --text-muted:    #64748b;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 3px; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  transition: background 0.4s, color 0.4s;
+}
+
+/* ── Theme helpers ── */
+.theme-text-primary   { color: var(--text-primary); }
+.theme-text-secondary { color: var(--text-secondary); }
+.theme-text-muted     { color: var(--text-muted); }
+
+/* ═══════════════════════════════════════════════
+   STANDARD ANIMATIONS
+   ═══════════════════════════════════════════════ */
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 20px rgba(99,102,241,0.4); }
+  50%      { box-shadow: 0 0 40px rgba(99,102,241,0.8), 0 0 80px rgba(99,102,241,0.3); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+.animate-float      { animation: float 4s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-fade-in-up { animation: fade-in-up 0.7s ease forwards; }
+.animate-blink      { animation: blink 1s step-end infinite; }
+
+/* ═══════════════════════════════════════════════
+   PHOTO GLOW — diffused blue light
+   ═══════════════════════════════════════════════ */
+
+@keyframes glow-breathe {
+  0%,100% { opacity: 0.55; transform: scale(1.00); }
+  50%      { opacity: 0.85; transform: scale(1.06); }
+}
+
+.photo-glow {
+  background: radial-gradient(
+    circle,
+    rgba(6, 182, 212, 0.45)  0%,
+    rgba(6, 182, 212, 0.20) 35%,
+    rgba(99, 102, 241, 0.10) 60%,
+    transparent              80%
+  );
+  filter: blur(28px);
+  animation: glow-breathe 3.5s ease-in-out infinite;
+}
+
+/* Border glow pulse */
+@keyframes border-glow-pulse {
+  0%,100% {
+    box-shadow:
+      0 0  8px  8px rgba(6,182,212,0.28),
+      0 0  22px 12px rgba(6,182,212,0.14),
+      0 0  50px 18px rgba(6,182,212,0.07),
+      0 0  90px 24px rgba(6,182,212,0.03);
+  }
+  50% {
+    box-shadow:
+      0 0  10px 10px rgba(6,182,212,0.42),
+      0 0  28px 16px rgba(6,182,212,0.22),
+      0 0  60px 22px rgba(6,182,212,0.11),
+      0 0 100px 28px rgba(6,182,212,0.05);
+  }
+}
+
+.photo-border-glow {
+  animation: border-glow-pulse 3.5s ease-in-out infinite;
+}
+
+
+/* ═══════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════ */
+
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-card);
+  transition: background 0.4s, border-color 0.4s;
+}
+
+html.light .glass {
+  box-shadow: 0 2px 16px rgba(99,102,241,0.08);
+}
+
+.noise::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.2;
+}
