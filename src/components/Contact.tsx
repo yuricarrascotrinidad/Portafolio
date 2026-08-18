@@ -1,6 +1,7 @@
 // ─── Contact Section ─────────────────────────────────────────────────────────
 import { useState } from 'react'
 import { Send, Mail, MapPin, Phone, CheckCircle } from 'lucide-react'
+import { FaWhatsapp } from 'react-icons/fa'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
@@ -47,6 +48,7 @@ export default function Contact() {
             {[
               { icon: Mail, title: 'Email', value: 'carrascoyuri841@gmail.com', href: 'carrascoyuri841@gmail.com' },
               { icon: Phone, title: 'Teléfono', value: '+51 989 766 318', href: 'tel:+51989766318' },
+              { icon: FaWhatsapp, title: 'WhatsApp', value: '+51 989 766 318', href: 'https://wa.me/51989766318?text=Hola,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20trabajar%20contigo.', target: '_blank' },
               { icon: MapPin, title: 'Ubicación', value: 'Perú (Remoto/Presencial)', href: undefined },
             ].map(({ icon: Icon, title, value, href }) => (
               <div key={title} className="glass rounded-2xl p-5 flex items-start gap-4 hover:border-indigo-500/30 transition-all duration-300 group">

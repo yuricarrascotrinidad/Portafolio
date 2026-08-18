@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowDown, GitBranch, Link2, AtSign, Download } from 'lucide-react'
 
-const ROLES = ['Full Stack Developer', 'UI/UX Designer', 'React Specialist', 'Open Source Contributor']
+const ROLES = ['Full Stack', 'Desarrollador Web', 'Automatizador de Procesos']
 const PHOTO_RADIUS = 200
 
 export default function Hero() {
@@ -41,32 +41,8 @@ export default function Hero() {
 
       <div className="max-w-6xl mx-auto w-full px-8 pt-24 pb-16 grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
 
-        {/* ── LEFT: Photo + glow ── */}
-        <div className="flex justify-center order-2 md:order-1">
-          <div className="relative flex items-center justify-center">
-
-            {/* Diffused blue glow — sits behind the photo */}
-            <div className="absolute rounded-full photo-glow" style={{ width: PHOTO_RADIUS * 2 + 100, height: PHOTO_RADIUS * 2 + 100 }} />
-
-            {/* Photo */}
-            <div
-              className="relative rounded-full overflow-hidden z-10 photo-border-glow"
-              style={{
-                width: PHOTO_RADIUS * 2,
-                height: PHOTO_RADIUS * 2,
-              }}
-            >
-              <img
-                src="/carnet.png"
-                alt="Yuri Carrasco"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* ── RIGHT: Text ── */}
-        <div className="order-1 md:order-2 flex flex-col gap-5 text-center md:text-left">
+        {/* ── LEFT: Text ── */}
+        <div className="order-2 md:order-1 flex flex-col gap-5 text-center md:text-left">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-indigo-400 font-medium animate-fade-in-up self-center md:self-start">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             Disponible para trabajar
@@ -101,15 +77,33 @@ export default function Hero() {
 
           <div className="flex items-center gap-3 animate-fade-in-up justify-center md:justify-start" style={{ animationDelay: '0.5s', opacity: 0 }}>
             {[
-              { icon: GitBranch, href: 'https://github.com', label: 'GitHub' },
-              { icon: Link2, href: 'https://linkedin.com', label: 'LinkedIn' },
-              { icon: AtSign, href: 'https://twitter.com', label: 'Twitter' },
+              //{ icon: GitBranch, href: 'https://github.com/yuricarrascotrinidad', label: 'GitHub' },
+              { icon: Link2, href: 'https://www.linkedin.com/in/yuri-carrasco-t', label: 'LinkedIn' },
+              //{ icon: AtSign, href: 'https://twitter.com', label: 'Twitter' },
             ].map(({ icon: Icon, href, label }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
                 className="w-11 h-11 rounded-xl glass flex items-center justify-center theme-text-muted hover:text-indigo-400 hover:border-indigo-500/40 transition-all duration-300 hover:-translate-y-1">
                 <Icon size={18} />
               </a>
             ))}
+          </div>
+        </div>
+
+        {/* ── RIGHT: Photo + glow ── */}
+        <div className="flex justify-center order-1 md:order-2">
+          <div className="relative flex items-center justify-center">
+            {/* Diffused blue glow — sits behind the photo */}
+            <div className="absolute rounded-full photo-glow w-80 h-80 md:w-[420px] md:h-[420px] lg:w-[500px] lg:h-[500px]" />
+            {/* Photo */}
+            <div
+              className="relative rounded-full overflow-hidden z-10 photo-border-glow w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px]"
+            >
+              <img
+                src="/carnet.png"
+                alt="Yuri Carrasco"
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -16,13 +16,29 @@ import {
   SiDocker,
   SiLinux,
   SiFigma,
+  SiJavascript,
+  SiCplusplus,
+  SiPhp,
+  SiLaravel,
+  SiAngular,
+  SiDjango,
+  SiFlask,
+  SiMysql,
+  SiRedis,
+  SiSqlite,
+  SiBootstrap,
+  SiLivewire,
+  SiGo,
 } from 'react-icons/si'
+import { FaJava, FaProjectDiagram, FaCogs, FaChartBar } from 'react-icons/fa'
+import { DiMaterializecss } from 'react-icons/di'
 
 type Skill = {
   name: string
   level: number
   color: string
-  icon: React.ComponentType<{ className?: string }>
+  icon: React.ComponentType<{ className?: string }> | null
+  isDivider?: boolean
 }
 type Category = { label: string; skills: Skill[] }
 
@@ -30,106 +46,51 @@ const CATEGORIES: Category[] = [
   {
     label: 'Frontend',
     skills: [
-      {
-        name: 'React',
-        level: 92,
-        color: '#61dafb',
-        icon: SiReact
-      },
-      {
-        name: 'Next.js',
-        level: 90,
-        color: '#ffffff',
-        icon: SiNextdotjs
-      },
-      {
-        name: 'TypeScript',
-        level: 88,
-        color: '#3178c6',
-        icon: SiTypescript
-      },
-      {
-        name: 'Tailwind',
-        level: 95,
-        color: '#38bdf8',
-        icon: SiTailwindcss
-      },
-      {
-        name: 'Vite',
-        level: 80,
-        color: '#bd34fe',
-        icon: SiVite
-      },
-      {
-        name: 'Webpack',
-        level: 75,
-        color: '#8dd6f9',
-        icon: SiWebpack
-      },
+      { name: 'JavaScript', level: 50, color: '#f7df1e', icon: SiJavascript },
+      { name: 'TypeScript', level: 30, color: '#3178c6', icon: SiTypescript },
+      { name: 'divider-1', level: 0, color: '', icon: null, isDivider: true },
+      { name: 'React', level: 50, color: '#61dafb', icon: SiReact },
+      { name: 'Next.js', level: 50, color: '#ffffff', icon: SiNextdotjs },
+      { name: 'Angular', level: 30, color: '#dd0031', icon: SiAngular },
+      { name: 'Tailwind', level: 60, color: '#38bdf8', icon: SiTailwindcss },
+      { name: 'Bootstrap', level: 70, color: '#7952B3', icon: SiBootstrap },
+      { name: 'Materialize', level: 70, color: '#EE6E73', icon: DiMaterializecss },
+      { name: 'Vite', level: 40, color: '#bd34fe', icon: SiVite },
+      //{ name: 'Webpack', level: 75, color: '#8dd6f9', icon: SiWebpack },
     ],
   },
   {
     label: 'Backend',
     skills: [
-      {
-        name: 'Node.js',
-        level: 85,
-        color: '#68a063',
-        icon: SiNodedotjs
-      },
-      {
-        name: 'Python',
-        level: 75,
-        color: '#ffd343',
-        icon: SiPython
-      },
-      {
-        name: 'PostgreSQL',
-        level: 80,
-        color: '#336791',
-        icon: SiPostgresql
-      },
-      {
-        name: 'Prisma',
-        level: 82,
-        color: '#5a67d8',
-        icon: SiPrisma
-      },
+      { name: 'Node.js', level: 40, color: '#68a063', icon: SiNodedotjs },
+      { name: 'PHP', level: 60, color: '#777bb4', icon: SiPhp },
+      { name: 'Java', level: 30, color: '#f89820', icon: FaJava },
+      { name: 'C++', level: 40, color: '#00599C', icon: SiCplusplus },
+      { name: 'Python', level: 75, color: '#ffd343', icon: SiPython },
+      //{ name: 'Go', level: 70, color: '#00ADD8', icon: SiGo },
+      { name: 'divider-2', level: 0, color: '', icon: null, isDivider: true },
+      { name: 'Laravel', level: 70, color: '#ff2d20', icon: SiLaravel },
+      { name: 'Django', level: 60, color: '#092e20', icon: SiDjango },
+      { name: 'Flask', level: 75, color: '#ffffff', icon: SiFlask },
+      { name: 'Livewire', level: 60, color: '#FB70A9', icon: SiLivewire },
+      { name: 'PostgreSQL', level: 70, color: '#336791', icon: SiPostgresql },
+      { name: 'MySQL', level: 70, color: '#4479A1', icon: SiMysql },
+      { name: 'SQLite', level: 60, color: '#003B57', icon: SiSqlite },
+      { name: 'Redis', level: 50, color: '#DC382D', icon: SiRedis },
+      { name: 'Prisma', level: 50, color: '#5a67d8', icon: SiPrisma },
     ],
   },
   {
     label: 'DevOps & Tools',
     skills: [
-      {
-        name: 'Git',
-        level: 90,
-        color: '#f05032',
-        icon: SiGit
-      },
-      {
-        name: 'GitHub',
-        level: 88,
-        color: '#ffffff',
-        icon: SiGithub
-      },
-      {
-        name: 'Docker',
-        level: 72,
-        color: '#2496ed',
-        icon: SiDocker
-      },
-      {
-        name: 'Linux',
-        level: 78,
-        color: '#fcc624',
-        icon: SiLinux
-      },
-      {
-        name: 'Figma',
-        level: 70,
-        color: '#f24e1e',
-        icon: SiFigma
-      },
+      //{ name: 'Git', level: 70, color: '#f05032', icon: SiGit },
+      { name: 'GitHub', level: 70, color: '#ffffff', icon: SiGithub },
+      //{ name: 'Docker', level: 72, color: '#2496ed', icon: SiDocker },
+      { name: 'Linux', level: 35, color: '#fcc624', icon: SiLinux },
+      { name: 'Figma', level: 70, color: '#f24e1e', icon: SiFigma },
+      { name: 'Bizagi', level: 75, color: '#00539A', icon: FaProjectDiagram },
+      { name: 'Promodel', level: 70, color: '#00A651', icon: FaCogs },
+      { name: 'Power BI', level: 60, color: '#F2C811', icon: FaChartBar },
     ],
   },
 ]
@@ -161,8 +122,8 @@ export default function Skills() {
               key={cat.label}
               onClick={() => setActive(i)}
               className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${active === i
-                  ? 'bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/30'
-                  : 'glass text-slate-400 hover:text-white'
+                ? 'bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/30'
+                : 'glass text-slate-400 hover:text-white'
                 }`}
             >
               {cat.label}
@@ -172,8 +133,12 @@ export default function Skills() {
 
         {/* Skills grid - cuadraditos independientes */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {CATEGORIES[active].skills.map((skill) => {
-            const Icon = skill.icon
+          {CATEGORIES[active].skills.map((skill, index) => {
+            if (skill.isDivider) {
+              return <div key={`divider-${index}`} className="col-span-full h-px bg-slate-700/50 my-2" />
+            }
+
+            const Icon = skill.icon!
             return (
               <div
                 key={skill.name}
