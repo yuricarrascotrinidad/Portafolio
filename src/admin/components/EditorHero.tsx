@@ -128,7 +128,6 @@ export default function EditorHero() {
             if (fileType === 'application/pdf') cvType = 'pdf'
             else if (fileType.startsWith('image/')) cvType = 'image'
             else if (fileType.includes('word') || fileType.includes('document')) cvType = 'word'
-            else if (fileType.includes('sheet') || fileType.includes('excel')) cvType = 'excel'
 
             // 🔥 Actualizar estado - cvType ya tiene el tipo correcto
             setForm(prev => ({
