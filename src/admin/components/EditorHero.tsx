@@ -85,16 +85,16 @@ export default function EditorHero() {
                 throw new Error('No autenticado. Inicia sesión nuevamente.')
             }
 
-            // Crear FormData
+            // Crear FormData - Usar query params en la URL
             const formData = new FormData()
             formData.append('image', file)
-            // 🔥 CAMBIO IMPORTANTE: Usar 'hero' como sección y 'cv' como subcarpeta
-            formData.append('section', 'hero')
-            formData.append('subfolder', 'cv')
 
-            console.log('Enviando a /api/upload con section=hero, subfolder=cv')
+            // 🔥 Usar query params en la URL para asegurar que se reciba la sección
+            const url = `http://localhost:3001/api/upload?section=hero&subfolder=cv`
 
-            const res = await fetch('http://localhost:3001/api/upload', {
+            console.log('Enviando a:', url)
+
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -122,15 +122,15 @@ export default function EditorHero() {
 
             console.log('Resultado:', result)
 
-            // Determinar el tipo de archivo
+            // 🔥 Determinar el tipo de archivo con el tipo correcto
             const fileType = file.type
-            let cvType = 'url'
+            let cvType: 'url' | 'pdf' | 'image' | 'word' | 'drive' = 'url'
             if (fileType === 'application/pdf') cvType = 'pdf'
             else if (fileType.startsWith('image/')) cvType = 'image'
             else if (fileType.includes('word') || fileType.includes('document')) cvType = 'word'
             else if (fileType.includes('sheet') || fileType.includes('excel')) cvType = 'excel'
 
-            // Actualizar estado con la URL correcta (que ahora será /uploads/hero/cv/...)
+            // 🔥 Actualizar estado - cvType ya tiene el tipo correcto
             setForm(prev => ({
                 ...prev,
                 cvUrl: result.url,
