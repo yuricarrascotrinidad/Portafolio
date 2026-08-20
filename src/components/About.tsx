@@ -1,14 +1,28 @@
 // ─── About Section ───────────────────────────────────────────────────────────
 import { GraduationCap, School, MapPin, Clock } from 'lucide-react'
-
-const stats = [
-  { icon: GraduationCap, value: 'Grado de estudio', label: 'Bachiller en Ingeniería de Sistemas' },
-  { icon: School, value: 'Universidad', label: 'Universidad nacional José Maria Arguedas' },
-  { icon: MapPin, value: 'Locación', label: 'Lima/Perú' },
-  { icon: Clock, value: 'Disponibilidad', label: 'Remoto/Presencial' },
-]
+import { useContent } from '../context/ContentContext'
 
 export default function About() {
+  const { content, loading } = useContent()
+  const about = content?.about
+
+  if (loading) {
+    return (
+      <section id="about" className="py-28 px-6 relative">
+        <div className="max-w-6xl mx-auto flex justify-center">
+          <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+        </div>
+      </section>
+    )
+  }
+
+  const stats = [
+    { icon: GraduationCap, value: 'Grado de estudio', label: about?.stats?.degree || 'Bachiller en Ingeniería de Sistemas' },
+    { icon: School, value: 'Universidad', label: about?.stats?.university || 'Universidad nacional José Maria Arguedas' },
+    { icon: MapPin, value: 'Locación', label: about?.stats?.location || 'Lima/Perú' },
+    { icon: Clock, value: 'Disponibilidad', label: about?.stats?.availability || 'Remoto/Presencial' },
+  ]
+
   return (
     <section id="about" className="py-28 px-6 relative">
       {/* Ambient light */}
@@ -24,7 +38,7 @@ export default function About() {
             className="text-4xl md:text-5xl font-bold text-white"
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
           >
-            Mi <span className="gradient-text">historia</span>
+            {about?.title || 'Mi'} <span className="gradient-text">historia</span>
           </h2>
         </div>
 
@@ -41,7 +55,7 @@ export default function About() {
               >
                 <div className="w-full h-full rounded-3xl bg-slate-900 overflow-hidden">
                   <img
-                    src="/perfil.png"
+                    src={about?.photo || '/perfil.png'}
                     alt="Perfil de Yuri"
                     className="w-full h-full object-cover object-top"
                   />
@@ -57,15 +71,13 @@ export default function About() {
 
           {/* Text side */}
           <div>
-            <p className="text-slate-400 leading-relaxed mb-5">
-              Soy un <span className="text-indigo-400 font-medium">Ingeniero de Sistemas y Desarrollador Full Stack</span> apasionado
-              por crear ecosistemas digitales modernos y escalables. Cuento con experiencia liderando
-              arquitecturas robustas, automatización de procesos y modelado de bases de datos eficientes.
-            </p>
-            <p className="text-slate-400 leading-relaxed mb-8">
-              Me enfoco en escribir código limpio, optimizar el rendimiento y aplicar metodologías ágiles.
-              Combino habilidades técnicas y de gestión para entregar soluciones integrales de alto valor.
-            </p>
+            <div
+              className="text-slate-400 leading-relaxed mb-5"
+              dangerouslySetInnerHTML={{ __html: about?.description || '' }}
+            />
+            <div className="text-slate-400 leading-relaxed mb-8">
+              {/* Si hay más párrafos, se manejan desde el WYSIWYG */}
+            </div>
             {/* Stats grid */}
             <div className="grid grid-cols-2 gap-4">
               {stats.map(({ icon: Icon, value, label }) => (
@@ -74,7 +86,7 @@ export default function About() {
                   className="glass rounded-2xl p-4 hover:border-indigo-500/30 transition-all duration-300 hover:-translate-y-1 group"
                 >
                   <Icon size={20} className="text-indigo-400 mb-2 group-hover:scale-110 transition-transform" />
-                  <div className="text-2xl font-bold text-white" style={{ fontFamily: 'Space Grotesk' }}>{value}</div>
+                  <div className="text-sm text-slate-300 font-medium">{value}</div>
                   <div className="text-xs text-slate-500">{label}</div>
                 </div>
               ))}

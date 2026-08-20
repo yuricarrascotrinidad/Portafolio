@@ -2,25 +2,45 @@
 import { useState } from 'react'
 import { Send, Mail, MapPin, Phone, CheckCircle } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
+import { useContent } from '../context/ContentContext'
 
 export default function Contact() {
+  const { content, loading } = useContent()
+  const contact = content?.contact
+
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loadingSubmit, setLoadingSubmit] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
-    // Simulated send — replace with your EmailJS / Resend / API call
+    setLoadingSubmit(true)
     await new Promise((r) => setTimeout(r, 1500))
-    setLoading(false)
+    setLoadingSubmit(false)
     setSent(true)
     setForm({ name: '', email: '', message: '' })
     setTimeout(() => setSent(false), 4000)
   }
+
+  if (loading) {
+    return (
+      <section id="contact" className="py-28 px-6 relative">
+        <div className="max-w-5xl mx-auto flex justify-center">
+          <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+        </div>
+      </section>
+    )
+  }
+
+  const contactItems = [
+    { icon: Mail, title: 'Email', value: contact?.email || 'carrascoyuri841@gmail.com', href: `mailto:${contact?.email || 'carrascoyuri841@gmail.com'}` },
+    { icon: Phone, title: 'Teléfono', value: contact?.phone || '+51 989 766 318', href: `tel:${contact?.phone || '+51989766318'}` },
+    { icon: FaWhatsapp, title: 'WhatsApp', value: contact?.whatsapp || '+51 989 766 318', href: `https://wa.me/${(contact?.whatsapp || '+51989766318').replace(/\s/g, '')}?text=Hola,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20trabajar%20contigo.`, target: '_blank' },
+    { icon: MapPin, title: 'Ubicación', value: contact?.location || 'Perú (Remoto/Presencial)', href: undefined },
+  ]
 
   return (
     <section id="contact" className="py-28 px-6 relative">
@@ -35,22 +55,16 @@ export default function Contact() {
             className="text-4xl md:text-5xl font-bold text-white"
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
           >
-            Hablemos <span className="gradient-text">juntos</span>
+            {contact?.title || 'Hablemos'} <span className="gradient-text">juntos</span>
           </h2>
           <p className="text-slate-500 mt-4 max-w-md mx-auto">
-            ¿Tienes un proyecto en mente? Estoy disponible para trabajar en nuevas ideas y colaboraciones.
+            {contact?.subtitle || '¿Tienes un proyecto en mente? Estoy disponible para trabajar en nuevas ideas y colaboraciones.'}
           </p>
         </div>
 
         <div className="grid md:grid-cols-5 gap-8">
-          {/* Info column */}
           <div className="md:col-span-2 space-y-6">
-            {[
-              { icon: Mail, title: 'Email', value: 'carrascoyuri841@gmail.com', href: 'carrascoyuri841@gmail.com' },
-              { icon: Phone, title: 'Teléfono', value: '+51 989 766 318', href: 'tel:+51989766318' },
-              { icon: FaWhatsapp, title: 'WhatsApp', value: '+51 989 766 318', href: 'https://wa.me/51989766318?text=Hola,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20trabajar%20contigo.', target: '_blank' },
-              { icon: MapPin, title: 'Ubicación', value: 'Perú (Remoto/Presencial)', href: undefined },
-            ].map(({ icon: Icon, title, value, href }) => (
+            {contactItems.map(({ icon: Icon, title, value, href, target }) => (
               <div key={title} className="glass rounded-2xl p-5 flex items-start gap-4 hover:border-indigo-500/30 transition-all duration-300 group">
                 <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center shrink-0 group-hover:bg-indigo-500/20 transition-colors">
                   <Icon size={18} className="text-indigo-400" />
@@ -58,7 +72,7 @@ export default function Contact() {
                 <div>
                   <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">{title}</p>
                   {href ? (
-                    <a href={href} className="text-slate-300 text-sm font-medium hover:text-indigo-400 transition-colors">
+                    <a href={href} target={target} className="text-slate-300 text-sm font-medium hover:text-indigo-400 transition-colors">
                       {value}
                     </a>
                   ) : (
@@ -69,7 +83,6 @@ export default function Contact() {
             ))}
           </div>
 
-          {/* Form column */}
           <form onSubmit={handleSubmit} className="md:col-span-3 glass rounded-3xl p-8 space-y-5">
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
@@ -119,10 +132,10 @@ export default function Contact() {
             </div>
             <button
               type="submit"
-              disabled={loading}
+              disabled={loadingSubmit}
               className="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold text-sm flex items-center justify-center gap-2 hover:from-indigo-400 hover:to-violet-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loading ? (
+              {loadingSubmit ? (
                 <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : sent ? (
                 <>
