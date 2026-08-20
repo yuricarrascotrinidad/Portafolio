@@ -1,6 +1,6 @@
 // admin/components/ImageUpload.tsx
 import { useState, useRef, useEffect } from 'react'
-import { Upload, X, Loader2, Image as ImageIcon } from 'lucide-react'
+import { Loader2, Image as ImageIcon } from 'lucide-react'
 import { api } from '../../services/api'
 
 interface ImageUploadProps {

@@ -144,7 +144,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
     )
 }
 
-export default function WysiwygEditor({ value, onChange, placeholder, minHeight = '150px' }: WysiwygEditorProps) {
+export default function WysiwygEditor({ value, onChange, minHeight = '150px' }: WysiwygEditorProps) {
     const editor = useEditor({
         extensions: [
             StarterKit.configure({

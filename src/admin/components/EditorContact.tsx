@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import { Save, RefreshCw } from 'lucide-react'
 import { useContent } from '../../context/ContentContext'
-import WysiwygEditor from './WysiwygEditor'
 
 export default function EditorContact() {
     const { content, updateSection, refresh } = useContent()

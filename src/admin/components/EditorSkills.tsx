@@ -3,18 +3,6 @@ import { useState } from 'react'
 import { Save, RefreshCw, Plus, X, GripVertical } from 'lucide-react'
 import { useContent } from '../../context/ContentContext'
 
-interface Skill {
-    name: string
-    level: number
-    color: string
-    icon: string
-}
-
-interface Category {
-    label: string
-    skills: Skill[]
-}
-
 export default function EditorSkills() {
     const { content, updateSection, refresh } = useContent()
     const skills = content?.skills

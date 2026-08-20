@@ -1,8 +1,8 @@
 // admin/Admin.tsx
 import { useState, useEffect } from 'react'
 import {
-    LayoutDashboard, User, Code2, FolderGit2, Mail, LogOut,
-    Menu, X, Home, Settings, RefreshCw, Shield
+    User, Code2, FolderGit2, Mail, LogOut,
+    Menu, X, Home, Shield
 } from 'lucide-react'
 import { useAdminAuth } from './hooks/useAdminAuth'
 import EditorHero from './components/EditorHero'

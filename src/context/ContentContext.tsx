@@ -1,5 +1,5 @@
 // context/ContentContext.tsx
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { api } from '../services/api';
 
 // Tipos de contenido
@@ -96,7 +96,9 @@ const defaultContent: ContentData = {
             github: 'https://github.com',
             twitter: 'https://twitter.com'
         },
-        cvUrl: '#'
+        cvUrl: '#',
+        cvType: 'url' as const,
+        cvLabel: 'Descargar CV',
     },
     about: {
         title: 'Mi historia',
